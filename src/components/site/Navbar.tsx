@@ -70,7 +70,7 @@ export function Navbar() {
           <NavLink href="/" label="Home" active />
           <NavLink href="/destinations" label="Destinations" />
           <NavLink href="/add-destinations" label="Add Destinations" />
-          <NavLink href="/bookings" label="My Bookings" />
+          <NavLink href="/my-bookings" label="My Bookings" />
           <NavLink href="/admin" label="Admin" />
         </div>
 
