@@ -22,7 +22,11 @@ const DestinationDetail = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:5000/destination/${id}`);
+  const res = await fetch(`http://localhost:5000/destination/${id}`, {
+    headers: {
+      authorization: "user loged in",
+    },
+  });
   const destination = await res.json();
 
   const title = destination.name ?? "Destination";

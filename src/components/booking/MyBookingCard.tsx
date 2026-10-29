@@ -7,6 +7,7 @@ import { CalendarDays, MapPin, Eye, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { redirect } from "next/navigation";
 
 interface Booking {
   _id?: string;
@@ -32,6 +33,19 @@ interface MyBookingCardProps {
 }
 
 const MyBookingCard = ({ booking }: MyBookingCardProps) => {
+  const handleCancelBooking = async () => {
+    const res = await fetch(
+      `http://localhost:5000/my-bookings/${booking._id}`,
+      {
+        method: "DELETE",
+      },
+    );
+    const data = await res.json();
+
+    console.log(data);
+    redirect("/my-bookings");
+  };
+
   const destination =
     typeof booking.destination === "object" ? booking.destination : undefined;
 
@@ -118,9 +132,7 @@ const MyBookingCard = ({ booking }: MyBookingCardProps) => {
             variant="outline"
             size="sm"
             className="cursor-pointer h-8 rounded-none border-red-300 px-2.5 text-xs text-red-500 hover:bg-red-50 hover:text-red-600"
-            onClick={() => {
-              // Connect your booking cancellation API here.
-            }}
+            onClick={handleCancelBooking}
           >
             <Trash2 className="size-3.5" />
             Cancel
