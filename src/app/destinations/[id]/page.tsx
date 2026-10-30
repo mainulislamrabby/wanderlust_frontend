@@ -7,6 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import EditDestination from "@/components/buttons/EditDestination";
 import DeleteDestination from "@/components/buttons/DeleteDestination";
 import BookingCard from "@/components/booking/BookingCard";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
 
 const HIGHLIGHTS = [
   "Luxury beachfront accommodation",
@@ -22,9 +25,12 @@ const DestinationDetail = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
+
+  const token = await getTokenFromServer();
+
   const res = await fetch(`http://localhost:5000/destination/${id}`, {
     headers: {
-      authorization: "user loged in",
+      authorization: `Bearer ${token}`,
     },
   });
   const destination = await res.json();

@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
+
 const CATEGORIES = ["Beach", "Mountain", "City", "Adventure", "Cultural"];
 
 const FIELD_CLASSES = "bg-muted/50";
@@ -35,28 +37,27 @@ export default function AddDestinationPage() {
       price: Number(formData.get("price")),
     };
 
-    try {
-      const res = await fetch("http://localhost:5000/add-destination", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newDestination),
-      });
+    const token = await getTokenFromClient();
 
-      const data = await res.json();
+    const res = await fetch("http://localhost:5000/add-destination", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(newDestination),
+    });
 
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to add travel package");
-      }
+    const result = await res.json();
 
-      console.log("Destination added:", data);
-      setSubmitted(true);
-      formRef.current?.reset();
-      setCategory("Beach");
-    } catch (error) {
-      console.error("Error adding destination:", error);
+    if (!res.ok) {
+      throw new Error(result.message || "Failed to add travel package");
     }
+
+    console.log("Destination added:", result);
+    setSubmitted(true);
+    formRef.current?.reset();
+    setCategory("Beach");
   };
 
   const handleCancel = () => {

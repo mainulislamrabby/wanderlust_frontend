@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const CATEGORIES = ["Beach", "Mountain", "City", "Adventure", "Cultural"];
 
@@ -67,12 +68,15 @@ export default function EditDestination({ destination }: EditDestinationProps) {
 
     const { _id, ...updateData } = form;
 
+    const token = await getTokenFromClient();
+
     const res = await fetch(
       `http://localhost:5000/destination/${destination?._id}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(updateData),
       },

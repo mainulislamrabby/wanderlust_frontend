@@ -1,5 +1,7 @@
 import MyBookingCard from "@/components/booking/MyBookingCard";
 import { auth } from "@/lib/auth";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
+
 import { headers } from "next/headers";
 
 interface Booking {
@@ -38,9 +40,12 @@ const MyBookings = async () => {
       </div>
     );
   }
-
+  const token = await getTokenFromServer()
   const res = await fetch(`http://localhost:5000/my-bookings/${user.email}`, {
     cache: "no-store",
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
   });
 
   if (!res.ok) {

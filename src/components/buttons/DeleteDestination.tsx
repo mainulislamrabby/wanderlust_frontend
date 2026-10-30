@@ -11,13 +11,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 import { Trash2 } from "lucide-react";
 import { redirect } from "next/navigation";
 
 const DeleteDestination = ({ id }: { id: string }) => {
   const handleDelete = async () => {
+    const token = await getTokenFromClient();
     const res = await fetch(`http://localhost:5000/destination/${id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     });
     const data = await res.json();
     redirect("/destinations");
