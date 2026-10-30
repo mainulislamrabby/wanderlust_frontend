@@ -1,5 +1,6 @@
 import { Banner } from "@/components/site/Banner";
 import { Cta } from "@/components/site/Cta";
+import Featured from "@/components/site/Featured";
 
 
 import { Testimonials } from "@/components/site/Testimonials";
@@ -9,7 +10,7 @@ export default function Home() {
   return (
     <div>
       <Banner />
-      
+      <Featured/>
       <WhyChoose />
       <Testimonials />
       <Cta />
