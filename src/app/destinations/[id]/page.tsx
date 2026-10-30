@@ -7,8 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import EditDestination from "@/components/buttons/EditDestination";
 import DeleteDestination from "@/components/buttons/DeleteDestination";
 import BookingCard from "@/components/booking/BookingCard";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
 
 const HIGHLIGHTS = [
@@ -28,7 +27,7 @@ const DestinationDetail = async ({
 
   const token = await getTokenFromServer();
 
-  const res = await fetch(`http://localhost:5000/destination/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destination/${id}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },

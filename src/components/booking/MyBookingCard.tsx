@@ -35,7 +35,7 @@ interface MyBookingCardProps {
 const MyBookingCard = ({ booking }: MyBookingCardProps) => {
   const handleCancelBooking = async () => {
     const res = await fetch(
-      `http://localhost:5000/my-bookings/${booking._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/my-bookings/${booking._id}`,
       {
         method: "DELETE",
       },

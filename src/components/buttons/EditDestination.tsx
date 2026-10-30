@@ -71,7 +71,7 @@ export default function EditDestination({ destination }: EditDestinationProps) {
     const token = await getTokenFromClient();
 
     const res = await fetch(
-      `http://localhost:5000/destination/${destination?._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/destination/${destination?._id}`,
       {
         method: "PATCH",
         headers: {

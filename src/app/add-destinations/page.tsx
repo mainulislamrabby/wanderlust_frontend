@@ -39,7 +39,7 @@ export default function AddDestinationPage() {
 
     const token = await getTokenFromClient();
 
-    const res = await fetch("http://localhost:5000/add-destination", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-destination`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

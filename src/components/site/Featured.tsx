@@ -14,7 +14,7 @@ const Featured = async () => {
   let destinations: Destination[] = [];
 
   try {
-    const res = await fetch("http://localhost:5000/featured-destinations", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featured-destinations`, {
       cache: "no-store",
     });
 
